@@ -15,7 +15,7 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
   constructor(
     @InjectRepository(UserEntity) private userRepo: Repository<UserEntity>,
-    private jwtService: JwtService
+    private jwtService: JwtService,
   ) {}
 
   async register(data: RegisterDTO) {
