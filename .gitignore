@@ -1,5 +1,5 @@
 .env
-pgdata
+pgdata/
 
 # compiled output
 /dist

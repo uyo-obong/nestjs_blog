@@ -1,11 +1,10 @@
 import { Injectable } from '@nestjs/common';
-import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from "@nestjs/typeorm";
+import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import { UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class DatabaseService implements TypeOrmOptionsFactory {
-  createTypeOrmOptions():
-    | Promise<TypeOrmModuleOptions>
-    | TypeOrmModuleOptions {
+  createTypeOrmOptions(): Promise<TypeOrmModuleOptions> | TypeOrmModuleOptions {
     return {
       name: 'default',
       type: 'postgres',
@@ -17,7 +16,7 @@ export class DatabaseService implements TypeOrmOptionsFactory {
       synchronize: true,
       dropSchema: false,
       logging: true,
-      entities: ['dist/**/*.entity.j'],
+      entities: [UserEntity, 'dist/**/*.entity.j'],
     };
   }
 }
