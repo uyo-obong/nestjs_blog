@@ -29,4 +29,29 @@ export class UserService {
       throw new BadRequestException();
     }
   }
+
+  async follow(authUser: UserEntity, username: string): Promise<UserEntity> {
+    const user = await this.userRepo.findOne({
+      where: { username },
+      relations: ['followers'],
+    });
+
+    const getAuthUser = await this.userRepo.findOne(authUser.id);
+    user.followers.push(getAuthUser);
+    await user.save();
+    return user.followersCheck(getAuthUser);
+  }
+
+  async unfollow(authUser: UserEntity, username: string) {
+    const user = await this.userRepo.findOne({
+      where: { username },
+      relations: ['followers'],
+    });
+
+    const getAuthUser = await this.userRepo.findOne(authUser.id);
+    user.followers = user.followers.filter(
+      (follower) => follower !== getAuthUser);
+    await user.save();
+    return user.followersCheck(getAuthUser);
+  }
 }

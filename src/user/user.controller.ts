@@ -11,14 +11,16 @@ export class UserController {
 
   @Get('auth')
   @UseGuards(AuthGuard())
-  findCurrentUser(@AuthUser() { id }: UserEntity) {
-    return this.UserService.findUser(id);
+  async findCurrentUser(@AuthUser() { id }: UserEntity) {
+    const user = await this.UserService.findUser(id);
+    return { user };
   }
 
   @Put('update/profile')
   @UseGuards(AuthGuard())
   @UsePipes(new ValidationPipe({ forbidNonWhitelisted: true, whitelist: true }))
-  updateUser(@AuthUser() { id }: UserEntity, @Body() data: UpdateUserDTO) {
-    return this.UserService.updateUser(id, data);
+  async updateUser(@AuthUser() { id }: UserEntity, @Body() data: UpdateUserDTO) {
+    const user = await this.UserService.updateUser(id, data);
+    return { user };
   }
 }
