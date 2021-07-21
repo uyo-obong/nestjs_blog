@@ -1,8 +1,9 @@
 import { AbstractEntity } from './abstract/abstract.entity';
-import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, ManyToOne, RelationCount } from "typeorm";
+import { BeforeInsert, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, RelationCount } from "typeorm";
 import * as slugify from 'slug';
 import { UserEntity } from './user.entity';
 import { classToPlain } from 'class-transformer';
+import { CommentEntity } from "./comment.entity";
 
 @Entity('articles')
 export class ArticleEntity extends AbstractEntity {
@@ -24,6 +25,9 @@ export class ArticleEntity extends AbstractEntity {
 
   @ManyToOne(type => UserEntity, user => user.articles, { eager: true})
   author: UserEntity;
+
+  @OneToMany(type => CommentEntity, comment => comment.article)
+  comment: CommentEntity[];
 
   @Column({ default: 0 })
   favoritesCount: number;

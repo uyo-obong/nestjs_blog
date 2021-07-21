@@ -4,6 +4,7 @@ import { DatabaseService } from './database.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { ArticleModule } from './article/article.module';
+import { CommentsModule } from './comments/comments.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { ArticleModule } from './article/article.module';
     AuthModule,
     UserModule,
     ArticleModule,
+    CommentsModule,
   ],
   controllers: [],
   providers: [],
